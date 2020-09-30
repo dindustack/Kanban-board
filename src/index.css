@@ -1,13 +1,145 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+body,
+html {
+  box-sizing: border-box;
+  /* height: 100%; */
+  background: #ef00db;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+
+
+.media {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+}
+
+.media-pill {
+  position: relative;
+  padding: 2px 1rem 2px 2px;
+  background-color: rgba(31, 45, 61, 0.15);
+  border-radius: 50rem;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+
+.avatar {
+  position: relative;
+  color: #fff;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  vertical-align: middle;
+  font-size: 1rem;
+  font-weight: 600;
+  height: 3.125rem;
+  width: 3.125rem;
+  object-fit: cover;
+}
+
+.avatar,
+.avatar img {
+  border-radius: 0.25rem;
+}
+
+.avatar-sm {
+  width: 2.4375rem;
+  height: 2.4375rem;
+  object-fit: cover;
+}
+
+.avatar img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.avatar.rounded-circle img {
+  border-radius: 50%;
+}
+
+.btn-icon-only {
+  width: 2.125rem;
+  height: 2.125rem;
+  line-height: 2.125rem;
+  padding: 0;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.theme-color {
+  background-color: #ef00db;
+}
+.column-color{
+	background-color: #ebecf0 !important;
+}
+
+.kanban-board {
+  -ms-flex: 1;
+  flex: 1;
+  white-space: nowrap;
+  overflow-x: scroll;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-right: -6.6666666667px;
+  margin-left: -6.6666666667px;
+}
+
+.kanban-board,
+.kanban-col {
+  -webkit-box-flex: 1;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.kanban-col {
+  max-width: 19.5rem;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  width: calc(100vw - 24px);
+  max-height: 100%;
+  padding-right: 6.6666666667px;
+  padding-left: 6.6666666667px;
+  outline: none;
+}
+
+.kanban-col .card-list {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  max-height: 100%;
+  height: 100%;
+  margin-bottom: 0;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.kanban-col .card-list-body {
+  height: 100%;
+}
+
+.draggable-item {
+  cursor: -webkit-grab;
+  cursor: grab;
 }
