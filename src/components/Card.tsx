@@ -7,8 +7,8 @@ export const Card = ({ text }: CardProps) => {
   return (
     <>
       <div className="card mb-2 border shadow-none">
-        <div className="card-text p-2 align-items-start">
-          <h5 className="text-black">{text}</h5>
+        <div className="card-body p-2 text-justify">
+          <h6 className="text-black card-text">{text}</h6>
         </div>
       </div>
     </>

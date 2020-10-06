@@ -15,9 +15,11 @@ export const KanbanBoard = () => {
               </div>
             </div>
           </div>
-          <div className="kanban-col mt-0">
-            <div className="mt-0 add-item shadow-sm text-white">
+          <div className="kanban-col">
+            <div className="card-text add-item shadow-lg text-white">
               <AddNewItem toggleButtonText="Add another list" onAdd={console.log} dark />
+
+              {/* <AddNewItem toggleButtonText="Add another list" onAdd={console.log} dark /> */}
             </div>
           </div>
           {/*<div className="kanban-col">

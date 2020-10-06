@@ -29,7 +29,7 @@ export const AddNewItem = (props: AddNewItemProps) => {
           color: props.dark ? "000" : "#fff",
         }}
         onClick={() => setShowForm(true)}
-        className="btn btn-block btn-transparent text-left mt-3">
+        className="btn btn-block btn-transparent text-left">
         <a className="action-item mr-2 text-decoration-none" href="action">
           <svg viewBox="0 0 20 20" fill="#000000" width="15px" height="15px">
             <path
