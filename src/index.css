@@ -9,7 +9,9 @@ html {
   font-family: "Poppins", sans-serif;
 }
 
-
+.add-item {
+  background-color: #ffffff3d;
+}
 
 .media {
   display: -webkit-box;
@@ -89,7 +91,7 @@ html {
   -ms-flex: 1;
   flex: 1;
   white-space: nowrap;
-  overflow-x: scroll;
+  /* overflow-x: scroll; */
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -133,6 +135,7 @@ html {
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
+  border-radius: 3px;
 }
 
 .kanban-col .card-list-body {
