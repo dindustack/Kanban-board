@@ -1,26 +1,31 @@
 import React from "react";
 import { Card } from "./Card";
 import { AddNewItem } from "./AddNewItem";
+import { useAppState } from "../AppStateContext";
 
 interface ColumnProps {
   text: string;
+  index: number;
 }
 
-export const Column = ({ text }: React.PropsWithChildren<ColumnProps>) => {
+export const Column = ({ text, index, id }: ColumnProps) => {
+  const { state, dispatch } = useAppState();
+
   return (
     <>
       <div className="col mb-2">
         {/* ------- Todo board starts here */}
         <h4 className="mb-0 font-weight-bold">{text}</h4>
       </div>
+
       <div className="col text-right mb-2">
         <div className="actions">
           <a className="action-item mr-2" href="action">
             <svg viewBox="0 0 20 20" fill="currentColor" width="15px" height="15px">
               <path
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                clip-rule="evenodd"
+                clipRule="evenodd"
               />
             </svg>
           </a>
@@ -31,14 +36,13 @@ export const Column = ({ text }: React.PropsWithChildren<ColumnProps>) => {
           </a>
         </div>
       </div>
+
       {/* ---------------- Content for Todo -------- */}
       <div className="card-list-body mt-md-3">
-        <Card text="Call Mr. Damiete" />
-        <AddNewItem 
-          toggleButtonText="Add another task" 
-          onAdd={console.log} 
-          dark 
-        />
+        {state.lists[index].tasks.map((task, i) => (
+          <Card text={task.text} key={task.id} index={i} />
+        ))}
+        <AddNewItem toggleButtonText="Add another task" onAdd={text => dispatch({type: "ADD_TASK", payload: { text, taskId: id } })} />
       </div>
     </>
   );
