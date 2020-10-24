@@ -27,7 +27,7 @@ export const Header = () => {
               </span>
               {/* ----------- Profile Name ---------------- */}
               <div className="ml-2 d-none d-lg-block">
-                <span className="mb-0 small font-weight-bold text-white">Chinwendu</span>
+                <span className="mb-0 small font-weight-bold text-white">DinduStack</span>
               </div>
             </div>
           </li>

@@ -1,49 +1,84 @@
-import React from "react";
+import React, { useRef } from "react";
+import { ColumnContainer, ColumnTitle } from "./styles"
+import { useDrop } from "react-dnd"
 import { Card } from "./Card";
 import { AddNewItem } from "./AddNewItem";
 import { useAppState } from "../AppStateContext";
+import { useItemDrag } from "../useItemDrag";
+import { DragItem } from "../DragItem";
+import { isHidden } from "../utils/isHidden";
 
 interface ColumnProps {
-  text: string;
-  index: number;
+  text: string
+  index: number
+  id: string
+  isPreview?: boolean
 }
 
-export const Column = ({ text, index, id }: ColumnProps) => {
-  const { state, dispatch } = useAppState();
+export const Column = ({ text, index, id, isPreview }: ColumnProps) => {
+  const { state, dispatch } = useAppState()
+  const ref = useRef<HTMLDivElement>(null)
+  const [, drop] = useDrop({
+    accept: ["COLUMN", "CARD"],
+    hover(item: DragItem) {
+      if (item.type === "COLUMN") {
+        const dragIndex = item.index
+        const hoverIndex = index
+
+        if (dragIndex === hoverIndex) {
+          return
+        }
+
+        dispatch({ type: "MOVE_LIST", payload: { dragIndex, hoverIndex } })
+        item.index = hoverIndex
+      } else {
+        const dragIndex = item.index
+        const hoverIndex = 0
+        const sourceColumn = item.columnId
+        const targetColumn = id
+
+        if (sourceColumn === targetColumn) {
+          return
+        }
+
+        dispatch({
+          type: "MOVE_TASK",
+          payload: { dragIndex, hoverIndex, sourceColumn, targetColumn }
+        })
+
+        item.index = hoverIndex
+        item.columnId = targetColumn
+      }
+    }
+  })
+
+  const { drag } = useItemDrag({ type: "COLUMN", id, index, text })
+
+  drag(drop(ref))
 
   return (
-    <>
-      <div className="col mb-2">
-        {/* ------- Todo board starts here */}
-        <h4 className="mb-0 font-weight-bold">{text}</h4>
-      </div>
-
-      <div className="col text-right mb-2">
-        <div className="actions">
-          <a className="action-item mr-2" href="action">
-            <svg viewBox="0 0 20 20" fill="currentColor" width="15px" height="15px">
-              <path
-                fillRule="evenodd"
-                d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </a>
-          <a className="action-item" href="action">
-            <svg viewBox="0 0 20 20" fill="currentColor" width="15px" height="15px">
-              <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
-            </svg>
-          </a>
-        </div>
-      </div>
-
-      {/* ---------------- Content for Todo -------- */}
-      <div className="card-list-body mt-md-3">
-        {state.lists[index].tasks.map((task, i) => (
-          <Card text={task.text} key={task.id} index={i} />
-        ))}
-        <AddNewItem toggleButtonText="Add another task" onAdd={text => dispatch({type: "ADD_TASK", payload: { text, taskId: id } })} />
-      </div>
-    </>
-  );
-};
+    <ColumnContainer
+      isPreview={isPreview}
+      ref={ref}
+      isHidden={isHidden(isPreview, state.draggedItem, "COLUMN", id)}
+    >
+      <ColumnTitle>{text}</ColumnTitle>
+      {state.lists[index].tasks.map((task, i) => (
+        <Card
+          id={task.id}
+          columnId={id}
+          text={task.text}
+          key={task.id}
+          index={i}
+        />
+      ))}
+      <AddNewItem
+        toggleButtonText="+ Add a card"
+        onAdd={text =>
+          dispatch({ type: "ADD_TASK", payload: { text, columnId: id } })
+        }
+        dark
+      />
+    </ColumnContainer>
+  )
+}
